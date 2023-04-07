@@ -16,7 +16,7 @@ def setUpDatabase(db_name):
 # TASK 1
 # CREATE TABLE FOR EMPLOYEE INFORMATION IN DATABASE AND ADD INFORMATION
 def create_employee_table(cur, conn):
-    pass
+    (CREATE TABLE IF NOT EXISTS employees(employee_id INTEGER PRIMARY KEY, first_name TEXT, last_name TEXT, job_id INTEGER, hire_date TEXT, salary NUMERIC))
 
 # ADD EMPLOYEE'S INFORMTION TO THE TABLE
 
@@ -27,20 +27,20 @@ def add_employee(filename, cur, conn):
     file_data = f.read()
     f.close()
     # THE REST IS UP TO YOU
-    pass
+    cur.execute("""INSERT OR IGNORE INTO employees (employee_id, first_name, last_name, job_id, hire_date, salary)VALUES(?,?,?,?,?,?)""", (id, f_name, l_name, job, date, sal))
 
 # TASK 2: GET JOB AND HIRE_DATE INFORMATION
 def job_and_hire_date(cur, conn):
-    pass
+    SELECT Employees.hire_date, Jobs.job_title FROM Employees JOIN Jobs ON Employees.job_id=Jobs.job_id
 
 # TASK 3: IDENTIFY PROBLEMATIC SALARY DATA
 # Apply JOIN clause to match individual employees
 def problematic_salary(cur, conn):
-    pass
+    SELECT Employees.first_name, Employees.last_name FROM Employees JOIN Jobs ON Employees.job_id = Jobs.job_id WHERE Employees.salary < Jobs.min_salary OR Employees.salary > Jobs.max_salary
 
 # TASK 4: VISUALIZATION
 def visualization_salary_data(cur, conn):
-    pass
+    SELECT Jobs.job_title, Employees.salary FROM Jobs JOIN Employees ON Jobs.job_id = Employees.job_id
 
 class TestDiscussion12(unittest.TestCase):
     def setUp(self) -> None:
